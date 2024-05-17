@@ -1,5 +1,6 @@
 ---
 title: "Voting"
+author: "Violeta Keifer"
 format: html
 editor: visual
 execute: 
