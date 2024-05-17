@@ -1,26 +1,62 @@
 ---
-title: "voting"
+title: "Voting"
 format: html
 editor: visual
+execute: 
+  echo: false
+  message: false
+  warning: false
 ---
 
-## Quarto
+## Nuclear Weapons and Nuclear Materials
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+In 2013, the United States had the most yes votes at the UN to Nuclear Weapons and Nuclear Materials (83%) with France close behind at 75%. China had nearly half as many votes as the US at 42% and North Korea was in last place at 25% (Fig. 1).
 
 ```{r}
-1 + 1
-```
 
-You can add options to executable code like this
+# from ggplot 2 lecture 1 by Dr. Greg Chism
+
+# load packages
+library(tidyverse)
+library(readr)
+
+# set theme for ggplot2
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 12))
+
+# set width of code output
+options(width = 65)
+
+```
 
 ```{r}
-#| echo: false
-2 * 2
+# From HW-00-Meet-the-Toolkit
+
+#load data from un_votes csv file
+un_votes <- read_csv("data/un_votes.csv")
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+# From HW-00-Meet-the-Toolkit
+
+country_list <- c("United States", "France", "China", "North Korea") #set list of countries
+
+un_votes |> # take the dataset
+  filter(
+    country %in% country_list, # select rows for countries in from country_list
+    year %in% c("2013"), #select cases in year 2013
+    issue %in% c("Nuclear weapons and nuclear material") # select cases for nuclear weapons and nuclear material
+  ) |> 
+  ggplot(aes(x=country, y=percent_yes)) + #x and y data
+  geom_col(width = 0.5, fill="lightblue", color="black") + #create bar chart and adjust width and color (adjust color from https://www.geeksforgeeks.org/change-color-of-bars-in-barchart-using-ggplot2-in-r/)
+  labs(
+      x = "Country",
+      y = "Percent of Votes that were 'Yes'", 
+      title = "Figure 1. 
+Percent of 'Yes' Votes in 2013 
+for Nuclear Weapons and Nuclear Materials" # x, y and title labels
+  )
+```
+
+## References
+
+Color change information for bars in bar chart from <https://www.geeksforgeeks.org/change-color-of-bars-in-barchart-using-ggplot2-in-r/>

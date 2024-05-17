@@ -5,7 +5,8 @@ format: html
 editor: visual
 execute: 
   echo: false
-  warning: false
+  message: false
+  error: false
 ---
 
 ```{r setup, include=FALSE}
@@ -334,8 +335,10 @@ un_votes$issue |>
 | How would you count the number of unique issue areas?
 
 ```{r}
-un_votes$issue |>
-  unique()
+un_votes$issue |> 
+  unique() |>
+  length()
+
 ```
 
 ## First plots
@@ -354,6 +357,9 @@ ggplot(data = un_votes, mapping = aes(x = percent_yes)) +
 
 ```{r}
 # copypaste the code from above and try adjusting it!
+un_votes |> 
+  ggplot(mapping = aes(x = percent_yes)) + 
+  geom_histogram()
 ```
 
 ### UN General Assembly Vote Trends
